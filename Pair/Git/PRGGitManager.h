@@ -2,6 +2,6 @@
 
 @interface PRGGitManager : NSObject
 
-- (void)setConfigUsername:(NSString *)name;
+- (void)setConfigUsername:(NSString *)name email:(NSString *)email;
 
 @end

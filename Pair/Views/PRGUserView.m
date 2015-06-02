@@ -47,7 +47,7 @@ static AFHTTPRequestOperationManager *requestManager;
 - (void)setUser:(PRGUser *)user {
     _user = user;
     
-    [self.nameLabel setStringValue:user.name];
+    [self.nameLabel setStringValue:user.displayName];
     NSString *imageUrlPath = user.imageUrl ?: [user imageUrlPath];
     
     [self.imageView setImageWithURL:[NSURL URLWithString:imageUrlPath]];

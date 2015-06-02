@@ -6,24 +6,24 @@ static AFHTTPRequestOperationManager *_operationManager;
 
 @implementation PRGUser
 
-- (instancetype)initWithName:(NSString *)name
-                    andEmail:(NSString *)email {
-    return [self initWithName:name email:email andImage:nil];
-    
-}
-
-
-- (instancetype)initWithName:(NSString *)name
-                       email:(NSString *)email
-                    andImage:(NSImage *)image {
-    self = [super init];
-    if (self) {
-        _name   = name;
-        _email  = email;
+- (NSString *)displayName
+{
+    if (self.name.length > 0) {
+        NSArray *names = [self.name componentsSeparatedByString:@" "];
+        NSString *firstName = names.firstObject;
+        NSMutableString *displayName = [NSMutableString stringWithString:firstName];
+        
+        if (names.count > 1) {
+            NSString *lastName = names.lastObject;
+            NSString *lastInitial = [lastName substringToIndex:1];
+            [displayName appendFormat:@" %@.", lastInitial];
+        }
+        
+        return displayName;
     }
-    return self;
+    
+    return self.username;
 }
-
 
 - (NSString *)imageUrlPath {
     NSString *baseUrl   = @"http://www.gravatar.com/avatar/";

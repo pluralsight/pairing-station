@@ -101,13 +101,14 @@ BOOL shouldLockOverlayOn  = NO;
     
     [self.gitHubAPI fetchUserWithName:username
                            completion:^(NSDictionary *userDict) {
-                               if (!userDict || !userDict[@"login"]) {
+                               if (!userDict || (!userDict[@"login"] && !userDict[@"name"])) {
                                    shouldLockOverlayOn = NO;
                                    return;
                                }
                                PRGUser *user = [[PRGUser alloc] init];
-                               user.name        = username;
-                               user.email       = @"";
+                               user.name = userDict[@"name"];
+                               user.username        = username;
+                               user.email       = userDict[@"email"];
                                user.imageUrl    = userDict[@"avatar_url"];
                                
                                if (seatSide == PRGSeatSideLeft) {
@@ -123,7 +124,7 @@ BOOL shouldLockOverlayOn  = NO;
 
 - (void)mouseEntered:(NSEvent *)theEvent {
     waitingToShowOverlay = YES;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (!waitingToShowOverlay) {
             return;
         }
@@ -180,19 +181,38 @@ BOOL shouldLockOverlayOn  = NO;
 }
 
 
-- (void)applyUsersToGitProfile {
-    NSString *nameString;
-    if (!_leftUser.name && !_rightUser.name) {
-        nameString = @"Pairing Station";
+- (NSString *)emailString {
+    NSString *emailString;
+    if (!_leftUser.email && !_rightUser.email) {
+        emailString = nil;
     }
-    else if (_leftUser.name && _rightUser.name) {
-        nameString = [NSString stringWithFormat:@"%@ and %@", _leftUser.name, _rightUser.name];
+    else if (_leftUser.email && _rightUser.email) {
+        emailString = [NSString stringWithFormat:@"%@, %@", _leftUser.email, _rightUser.email];
     }
     else {
-        nameString = _leftUser.name ?: _rightUser.name;
+        emailString = _leftUser.email ?: _rightUser.email;
     }
-    
-    [self.gitManager setConfigUsername:nameString];
+    return emailString;
+}
+
+- (NSString *)nameString {
+    NSString *nameString;
+    if (!_leftUser.displayName && !_rightUser.displayName) {
+        nameString = @"Pairing Station";
+    }
+    else if (_leftUser.displayName && _rightUser.displayName) {
+        nameString = [NSString stringWithFormat:@"%@ and %@", _leftUser.displayName, _rightUser.displayName];
+    }
+    else {
+        nameString = _leftUser.displayName ?: _rightUser.displayName;
+    }
+    return nameString;
+}
+
+- (void)applyUsersToGitProfile {
+    NSString *nameString = [self nameString];
+    NSString *emailString = [self emailString];
+    [self.gitManager setConfigUsername:nameString email:emailString];
 }
 
 @end
