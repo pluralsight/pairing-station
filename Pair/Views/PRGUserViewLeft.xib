@@ -1,45 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view alphaValue="0.94999999999999996" id="H3k-jT-3dH" customClass="PRGUserView">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="112"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S5x-Rp-21I">
-                    <rect key="frame" x="106" y="46" width="187" height="33"/>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edf-HY-yc6">
+                    <rect key="frame" x="32" y="28" width="64" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="LvL-95-RCs"/>
+                        <constraint firstAttribute="width" constant="64" id="NFd-wH-Oou"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="IHL-0Q-WZn"/>
+                </imageView>
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TgO-Hj-cMc">
+                    <rect key="frame" x="8" y="85" width="14" height="15"/>
+                    <buttonCell key="cell" type="inline" bezelStyle="inline" image="close" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="Nkg-sD-tM5">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystemBold"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removeUser:" target="H3k-jT-3dH" id="zJk-7A-XKY"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S5x-Rp-21I">
+                    <rect key="frame" x="110" y="44" width="52" height="33"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Chris" id="bJH-N9-kKQ">
                         <font key="font" size="20" name="AvenirNext-Regular"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37N-Tc-8de">
-                    <rect key="frame" x="108" y="13" width="82" height="17"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="fYw-Jb-e93">
+                    <rect key="frame" x="276" y="38" width="12" height="32"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="swap" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="NKG-rI-vA1">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="swapUsers:" target="H3k-jT-3dH" id="7E1-mS-m7u"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="37N-Tc-8de">
+                    <rect key="frame" x="36" y="7" width="56" height="17"/>
                     <buttonCell key="cell" type="inline" title="Change" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7jH-63-UFy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="smallSystemBold"/>
+                        <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                     <connections>
                         <action selector="userTappedChangeUser:" target="H3k-jT-3dH" id="Y0D-Tr-Qy6"/>
                     </connections>
                 </button>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edf-HY-yc6">
-                    <rect key="frame" x="8" y="10" width="80" height="80"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="IHL-0Q-WZn"/>
-                </imageView>
             </subviews>
+            <constraints>
+                <constraint firstItem="S5x-Rp-21I" firstAttribute="leading" secondItem="edf-HY-yc6" secondAttribute="trailing" constant="16" id="4jE-yc-uqD"/>
+                <constraint firstItem="edf-HY-yc6" firstAttribute="centerX" secondItem="37N-Tc-8de" secondAttribute="centerX" id="99C-sZ-rGK"/>
+                <constraint firstItem="S5x-Rp-21I" firstAttribute="centerY" secondItem="edf-HY-yc6" secondAttribute="centerY" id="Cpo-oN-eUQ"/>
+                <constraint firstItem="TgO-Hj-cMc" firstAttribute="top" secondItem="H3k-jT-3dH" secondAttribute="top" constant="8" id="Djz-bq-QzL"/>
+                <constraint firstAttribute="centerY" secondItem="fYw-Jb-e93" secondAttribute="centerY" id="DxH-Wl-1qo"/>
+                <constraint firstItem="edf-HY-yc6" firstAttribute="top" secondItem="H3k-jT-3dH" secondAttribute="top" constant="16" id="O6s-ua-OGm"/>
+                <constraint firstItem="fYw-Jb-e93" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S5x-Rp-21I" secondAttribute="trailing" constant="12" id="Skb-WE-mFF"/>
+                <constraint firstItem="edf-HY-yc6" firstAttribute="leading" secondItem="H3k-jT-3dH" secondAttribute="leading" constant="32" id="Ux0-1n-pRW"/>
+                <constraint firstItem="TgO-Hj-cMc" firstAttribute="leading" secondItem="H3k-jT-3dH" secondAttribute="leading" constant="8" id="ZgZ-m0-UWf"/>
+                <constraint firstAttribute="bottom" secondItem="37N-Tc-8de" secondAttribute="bottom" constant="8" id="dR5-6F-iDP"/>
+                <constraint firstAttribute="trailing" secondItem="fYw-Jb-e93" secondAttribute="trailing" constant="12" id="gNk-ZH-T9F"/>
+            </constraints>
             <connections>
                 <outlet property="imageView" destination="edf-HY-yc6" id="4wJ-Zd-HX5"/>
                 <outlet property="nameLabel" destination="S5x-Rp-21I" id="3TQ-BH-NK6"/>
+                <outlet property="removeButton" destination="TgO-Hj-cMc" id="Yjv-5c-0xR"/>
             </connections>
             <point key="canvasLocation" x="240" y="453"/>
         </view>
     </objects>
+    <resources>
+        <image name="close" width="7" height="7"/>
+        <image name="swap" width="12" height="9"/>
+    </resources>
 </document>

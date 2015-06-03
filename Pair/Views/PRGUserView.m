@@ -9,6 +9,7 @@
 @property (nonatomic, strong) IBOutlet NSTextField *nameLabel;
 
 @property (nonatomic, strong) IBOutlet NSImageView *imageView;
+@property (weak) IBOutlet NSButton *removeButton;
 
 @end
 
@@ -28,7 +29,7 @@ static AFHTTPRequestOperationManager *requestManager;
 - (void)viewDidMoveToWindow {
     [super viewDidMoveToWindow];
     self.imageView.layer.borderColor    = [NSColor lightGrayColor].CGColor;
-    self.imageView.layer.cornerRadius   = 40;
+    self.imageView.layer.cornerRadius   = 32;
     self.imageView.layer.borderWidth    = 1;
     self.imageView.layer.masksToBounds  = YES;
     
@@ -43,14 +44,31 @@ static AFHTTPRequestOperationManager *requestManager;
     }
 }
 
+- (IBAction)removeUser:(id)sender {
+    if (self.removeUserHandler) {
+        self.removeUserHandler();
+    }
+}
+
+- (IBAction)swapUsers:(id)sender {
+    if (self.swapUsersHandler) {
+        self.swapUsersHandler();
+    }
+}
 
 - (void)setUser:(PRGUser *)user {
     _user = user;
     
-    [self.nameLabel setStringValue:user.displayName];
+    self.removeButton.hidden = user == nil;
+    
+    [self.nameLabel setStringValue:user ? user.displayName : @"Come pair!"];
     NSString *imageUrlPath = user.imageUrl ?: [user imageUrlPath];
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:imageUrlPath]];
+    if (imageUrlPath) {
+        [self.imageView setImageWithURL:[NSURL URLWithString:imageUrlPath]];
+    } else {
+        self.imageView.image = nil;
+    }
 }
 
 

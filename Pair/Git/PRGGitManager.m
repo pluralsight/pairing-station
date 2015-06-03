@@ -12,10 +12,14 @@
     
     [nameTask waitUntilExit];
     
+    NSString *emailString = email ? email : @"";
+    
     NSTask *emailTask = [NSTask new];
     emailTask.launchPath = gitPath;
-    emailTask.arguments = @[@"config", @"--global", @"user.email", @""];
+    emailTask.arguments = @[@"config", @"--global", @"user.email", emailString];
     [emailTask launch];
+    
+    [emailTask waitUntilExit];
 }
 
 @end

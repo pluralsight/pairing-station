@@ -12,15 +12,22 @@
 }
 
 
-- (void)fetchUserWithName:(NSString *)username
-               completion:(PRGGitHubUserFetchCompletion)completion {
-    [self.requestManager GET:[NSString stringWithFormat:@"/users/%@", username] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (responseObject && completion) {
-            completion(responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completion(nil);
-    }];
+- (void)fetchUserWithEmail:(NSString *)email
+                  password:(NSString *)password
+                completion:(PRGGitHubUserFetchCompletion)completion {
+    [self.requestManager.requestSerializer setAuthorizationHeaderFieldWithUsername:email password:password];
+    [self.requestManager GET:@"/user"
+                  parameters:nil
+                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                         if (completion) {
+                             completion(responseObject);
+                         }
+                     }
+                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         if (completion) {
+                             completion(nil);
+                         }
+                     }];
 }
 
 @end

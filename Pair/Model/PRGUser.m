@@ -46,4 +46,24 @@ static AFHTTPRequestOperationManager *_operationManager;
             ];  
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if (!object) {
+        return NO;
+    }
+    
+    if (self == object) {
+        return YES;
+    }
+    
+    if ([object isKindOfClass:[self class]]) {
+        PRGUser *otherUser = object;
+        if ([self.username isEqualToString:otherUser.username]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 @end

@@ -7,7 +7,8 @@ typedef void(^PRGGitHubUserFetchCompletion)(NSDictionary *userDict);
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 
-- (void)fetchUserWithName:(NSString *)username
-               completion:(PRGGitHubUserFetchCompletion)completion;
+- (void)fetchUserWithEmail:(NSString *)email
+                  password:(NSString *)password
+                completion:(PRGGitHubUserFetchCompletion)completion;
 
 @end

@@ -28,7 +28,7 @@ BOOL shouldLockOverlayOn  = NO;
     NSRect mainScreenBounds = mainScreen.frame;
     
     NSInteger overlayWidth   = 300;
-    NSInteger overlayHeight  = 100;
+    NSInteger overlayHeight  = 112;
     
     NSRect overlayBoundingRect = NSMakeRect(0, mainScreenBounds.size.height - 70, mainScreenBounds.size.width, overlayHeight);
     self.overlayWindow = [[NSWindow alloc] initWithContentRect:overlayBoundingRect
@@ -68,11 +68,27 @@ BOOL shouldLockOverlayOn  = NO;
     [self.leftUserOverlay setChangeUserHandler:^{
         [weakSelf promptForLoginOnSeatSide:PRGSeatSideLeft];
     }];
+    [self.leftUserOverlay setRemoveUserHandler:^{
+        [weakSelf setLeftUser:nil];
+    }];
+    [self.leftUserOverlay setSwapUsersHandler:^{
+        PRGUser *origLeftUser = weakSelf.leftUser;
+        [weakSelf setLeftUser:weakSelf.rightUser];
+        [weakSelf setRightUser:origLeftUser];
+    }];
     [self.overlayWindow.contentView addSubview:self.leftUserOverlay];
     
     self.rightUserOverlay = [PRGUserView rightUserView];
     [self.rightUserOverlay setChangeUserHandler:^{
         [weakSelf promptForLoginOnSeatSide:PRGSeatSideRight];
+    }];
+    [self.rightUserOverlay setRemoveUserHandler:^{
+        [weakSelf setRightUser:nil];
+    }];
+    [self.rightUserOverlay setSwapUsersHandler:^{
+        PRGUser *origLeftUser = weakSelf.leftUser;
+        [weakSelf setLeftUser:weakSelf.rightUser];
+        [weakSelf setRightUser:origLeftUser];
     }];
     [self.overlayWindow.contentView addSubview:self.rightUserOverlay];
     self.rightUserOverlay.frame = NSMakeRect(mainScreenBounds.size.width - overlayWidth, 0, overlayWidth, 110);
@@ -85,40 +101,65 @@ BOOL shouldLockOverlayOn  = NO;
     shouldLockOverlayOn = YES;
     
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:@"Enter your Github username"];
+    [alert setMessageText:@"Enter your Github email"];
     [alert addButtonWithTitle:@"Ok"];
     [alert addButtonWithTitle:@"Cancel"];
     
-    NSString *username;
+    NSString *email;
     NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
     [input setStringValue:@""];
     
     [alert setAccessoryView:input];
     NSInteger button = [alert runModal];
     if (button == NSAlertFirstButtonReturn) {
-        username = [input stringValue];
+        email = [input stringValue];
     }
     
-    [self.gitHubAPI fetchUserWithName:username
-                           completion:^(NSDictionary *userDict) {
-                               if (!userDict || (!userDict[@"login"] && !userDict[@"name"])) {
-                                   shouldLockOverlayOn = NO;
-                                   return;
-                               }
-                               PRGUser *user = [[PRGUser alloc] init];
-                               user.name = userDict[@"name"];
-                               user.username        = username;
-                               user.email       = userDict[@"email"];
-                               user.imageUrl    = userDict[@"avatar_url"];
-                               
-                               if (seatSide == PRGSeatSideLeft) {
-                                   [self setLeftUser:user];
-                               }
-                               else {
-                                   [self setRightUser:user];
-                               }
-                               shouldLockOverlayOn = NO;
-                           }];
+    NSAlert *passwordAlert = [NSAlert new];
+    [passwordAlert setMessageText:@"Enter your Github password"];
+    [passwordAlert addButtonWithTitle:@"Ok"];
+    [passwordAlert addButtonWithTitle:@"Cancel"];
+    
+    NSString *password;
+    NSSecureTextField *passwordInput = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    
+    [passwordInput setStringValue:@""];
+    
+    [passwordAlert setAccessoryView:passwordInput];
+    button = [passwordAlert runModal];
+    if (button == NSAlertFirstButtonReturn) {
+        password = [passwordInput stringValue];
+    }
+    
+    [self.gitHubAPI fetchUserWithEmail:email
+                              password:password
+                            completion:^(NSDictionary *userDict) {
+                                if (!userDict || (!userDict[@"login"] && !userDict[@"name"])) {
+                                    shouldLockOverlayOn = NO;
+                                    return;
+                                }
+                                PRGUser *user = [[PRGUser alloc] init];
+                                user.name = userDict[@"name"];
+                                user.username = userDict[@"login"];
+                                user.email = email;
+                                user.imageUrl = userDict[@"avatar_url"];
+                                
+                                if (seatSide == PRGSeatSideLeft) {
+                                    [self setLeftUser:user];
+                                }
+                                else {
+                                    [self setRightUser:user];
+                                }
+                                
+                                if ([self.leftUser isEqual:self.rightUser]) {
+                                    if (seatSide == PRGSeatSideLeft) {
+                                        [self setRightUser:nil];
+                                    } else {
+                                        [self setLeftUser:nil];
+                                    }
+                                }
+                                shouldLockOverlayOn = NO;
+                            }];
 }
 
 

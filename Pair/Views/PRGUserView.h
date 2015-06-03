@@ -7,6 +7,8 @@ typedef void(^PRGUserViewTappedChangeHandler)();
 @property (nonatomic, strong) PRGUser *user;
 
 @property (nonatomic, copy) PRGUserViewTappedChangeHandler changeUserHandler;
+@property (nonatomic, copy) PRGUserViewTappedChangeHandler removeUserHandler;
+@property (nonatomic, copy) PRGUserViewTappedChangeHandler swapUsersHandler;
 
 + (PRGUserView *)leftUserView;
 + (PRGUserView *)rightUserView;
