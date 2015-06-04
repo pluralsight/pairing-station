@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DE3FB621B20EA96009EFD0C /* SignInAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DE3FB611B20EA96009EFD0C /* SignInAlertView.xib */; };
 		1DE3FB651B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE3FB641B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift */; };
+		1DE3FB691B20F3FD009EFD0C /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE3FB681B20F3FD009EFD0C /* MenubarController.m */; };
+		1DE3FB6F1B20F6CE009EFD0C /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE3FB6E1B20F6CE009EFD0C /* StatusItemView.m */; };
 		4F53DC8BC1DB898CB092E514 /* libPods-Pair.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48832000DDBBD8356EC164 /* libPods-Pair.a */; };
 		832C84F91A7FE34700ECB2E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C84F81A7FE34700ECB2E4 /* AppDelegate.m */; };
 		832C84FB1A7FE34700ECB2E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C84FA1A7FE34700ECB2E4 /* main.m */; };
@@ -39,6 +41,10 @@
 		1DE3FB611B20EA96009EFD0C /* SignInAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInAlertView.xib; sourceTree = "<group>"; };
 		1DE3FB631B20EC91009EFD0C /* Pair-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pair-Bridging-Header.h"; sourceTree = "<group>"; };
 		1DE3FB641B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRGAuthenticationAlertAccessoryView.swift; sourceTree = "<group>"; };
+		1DE3FB671B20F3FD009EFD0C /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenubarController.h; sourceTree = "<group>"; };
+		1DE3FB681B20F3FD009EFD0C /* MenubarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenubarController.m; sourceTree = "<group>"; };
+		1DE3FB6D1B20F6CE009EFD0C /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
+		1DE3FB6E1B20F6CE009EFD0C /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		832C84F21A7FE34700ECB2E4 /* Pair.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pair.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		832C84F61A7FE34700ECB2E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		832C84F71A7FE34700ECB2E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -87,6 +93,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DE3FB661B20F3ED009EFD0C /* Status Item */ = {
+			isa = PBXGroup;
+			children = (
+				1DE3FB671B20F3FD009EFD0C /* MenubarController.h */,
+				1DE3FB681B20F3FD009EFD0C /* MenubarController.m */,
+				1DE3FB6D1B20F6CE009EFD0C /* StatusItemView.h */,
+				1DE3FB6E1B20F6CE009EFD0C /* StatusItemView.m */,
+			);
+			name = "Status Item";
+			sourceTree = "<group>";
+		};
 		832C84E91A7FE34700ECB2E4 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +127,7 @@
 		832C84F41A7FE34700ECB2E4 /* Pair */ = {
 			isa = PBXGroup;
 			children = (
+				1DE3FB661B20F3ED009EFD0C /* Status Item */,
 				83ACA8CC1A881F0D002E42A9 /* Categories */,
 				839296471A8816B700B60BC5 /* StationCoordinator */,
 				83ACA8D71A89711F002E42A9 /* Git */,
@@ -364,10 +382,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DE3FB6F1B20F6CE009EFD0C /* StatusItemView.m in Sources */,
 				8392964C1A88171F00B60BC5 /* PRGUser.m in Sources */,
 				83ACA8DB1A897189002E42A9 /* PRGStationCoordinator.m in Sources */,
 				832C84FB1A7FE34700ECB2E4 /* main.m in Sources */,
 				83ACA8CF1A881F21002E42A9 /* NSImageView+AFNetworking.m in Sources */,
+				1DE3FB691B20F3FD009EFD0C /* MenubarController.m in Sources */,
 				83ACA8D41A882422002E42A9 /* PRGUserView.m in Sources */,
 				83ACA8DA1A897130002E42A9 /* PRGGitManager.m in Sources */,
 				1DE3FB651B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift in Sources */,

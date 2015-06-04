@@ -22,4 +22,9 @@
 - (void)showPairingOverlay;
 - (void)hidePairingOverlay;
 
+- (void)swapUsers;
+- (void)removeLeftUser;
+- (void)removeRightUser;
+- (void)removeBoth;
+
 @end

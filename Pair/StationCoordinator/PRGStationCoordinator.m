@@ -76,12 +76,10 @@ BOOL shouldLockOverlayOn  = NO;
         [weakSelf promptForLoginOnSeatSide:PRGSeatSideLeft];
     }];
     [self.leftUserOverlay setRemoveUserHandler:^{
-        [weakSelf setLeftUser:nil];
+        [weakSelf removeLeftUser];
     }];
     [self.leftUserOverlay setSwapUsersHandler:^{
-        PRGUser *origLeftUser = weakSelf.leftUser;
-        [weakSelf setLeftUser:weakSelf.rightUser];
-        [weakSelf setRightUser:origLeftUser];
+        [weakSelf swapUsers];
     }];
     [self.overlayWindow.contentView addSubview:self.leftUserOverlay];
     
@@ -90,12 +88,10 @@ BOOL shouldLockOverlayOn  = NO;
         [weakSelf promptForLoginOnSeatSide:PRGSeatSideRight];
     }];
     [self.rightUserOverlay setRemoveUserHandler:^{
-        [weakSelf setRightUser:nil];
+        [weakSelf removeRightUser];
     }];
     [self.rightUserOverlay setSwapUsersHandler:^{
-        PRGUser *origLeftUser = weakSelf.leftUser;
-        [weakSelf setLeftUser:weakSelf.rightUser];
-        [weakSelf setRightUser:origLeftUser];
+        [weakSelf swapUsers];
     }];
     [self.overlayWindow.contentView addSubview:self.rightUserOverlay];
     self.rightUserOverlay.frame = NSMakeRect(mainScreenBounds.size.width - overlayWidth, 0, overlayWidth, 110);
@@ -257,5 +253,30 @@ BOOL shouldLockOverlayOn  = NO;
     NSString *emailString = [self emailString];
     [self.gitManager setConfigUsername:nameString email:emailString];
 }
+
+- (void)swapUsers
+{
+    PRGUser *origLeftUser = self.leftUser;
+    [self setLeftUser:self.rightUser];
+    [self setRightUser:origLeftUser];
+}
+
+- (void)removeLeftUser
+{
+    [self setLeftUser:nil];
+}
+
+- (void)removeRightUser
+{
+    [self setRightUser:nil];
+}
+
+- (void)removeBoth
+{
+    [self removeLeftUser];
+    [self removeRightUser];
+}
+
+
 
 @end

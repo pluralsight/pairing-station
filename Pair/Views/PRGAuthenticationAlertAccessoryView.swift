@@ -24,5 +24,6 @@ class PRGAuthenticationAlertAccessoryView: NSView {
     @IBAction func twoFactorClicked(sender: NSView) {
         sender.hidden = true
         twoFactorField.hidden = false
+        twoFactorField.becomeFirstResponder()
     }
 }
