@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DE3FB621B20EA96009EFD0C /* SignInAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DE3FB611B20EA96009EFD0C /* SignInAlertView.xib */; };
+		1DE3FB651B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE3FB641B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift */; };
 		4F53DC8BC1DB898CB092E514 /* libPods-Pair.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48832000DDBBD8356EC164 /* libPods-Pair.a */; };
 		832C84F91A7FE34700ECB2E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C84F81A7FE34700ECB2E4 /* AppDelegate.m */; };
 		832C84FB1A7FE34700ECB2E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C84FA1A7FE34700ECB2E4 /* main.m */; };
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1DE3FB611B20EA96009EFD0C /* SignInAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInAlertView.xib; sourceTree = "<group>"; };
+		1DE3FB631B20EC91009EFD0C /* Pair-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pair-Bridging-Header.h"; sourceTree = "<group>"; };
+		1DE3FB641B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRGAuthenticationAlertAccessoryView.swift; sourceTree = "<group>"; };
 		832C84F21A7FE34700ECB2E4 /* Pair.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pair.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		832C84F61A7FE34700ECB2E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		832C84F71A7FE34700ECB2E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -171,6 +176,9 @@
 				83ACA8D11A882422002E42A9 /* PRGUserView.m */,
 				83ACA8D21A882422002E42A9 /* PRGUserViewLeft.xib */,
 				83ACA8D31A882422002E42A9 /* PRGUserViewRight.xib */,
+				1DE3FB611B20EA96009EFD0C /* SignInAlertView.xib */,
+				1DE3FB641B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift */,
+				1DE3FB631B20EC91009EFD0C /* Pair-Bridging-Header.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				832C85001A7FE34700ECB2E4 /* Images.xcassets in Resources */,
+				1DE3FB621B20EA96009EFD0C /* SignInAlertView.xib in Resources */,
 				83ACA8D51A882422002E42A9 /* PRGUserViewLeft.xib in Resources */,
 				83ACA8D61A882422002E42A9 /* PRGUserViewRight.xib in Resources */,
 				832C85031A7FE34700ECB2E4 /* Main.storyboard in Resources */,
@@ -361,6 +370,7 @@
 				83ACA8CF1A881F21002E42A9 /* NSImageView+AFNetworking.m in Sources */,
 				83ACA8D41A882422002E42A9 /* PRGUserView.m in Sources */,
 				83ACA8DA1A897130002E42A9 /* PRGGitManager.m in Sources */,
+				1DE3FB651B20EC92009EFD0C /* PRGAuthenticationAlertAccessoryView.swift in Sources */,
 				832C84F91A7FE34700ECB2E4 /* AppDelegate.m in Sources */,
 				83B3EAF61A8FE0A600A2A767 /* PRGGitHubAPI.m in Sources */,
 			);
@@ -477,11 +487,14 @@
 			baseConfigurationReference = E4E6DED7C622D97F2B34ACCE /* Pods-Pair.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Pair/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pair/Views/Pair-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -490,11 +503,13 @@
 			baseConfigurationReference = 99E3E1839C1D3DC625AE13A5 /* Pods-Pair.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Pair/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pair/Views/Pair-Bridging-Header.h";
 			};
 			name = Release;
 		};

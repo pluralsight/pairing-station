@@ -9,6 +9,6 @@ typedef void(^PRGGitHubUserFetchCompletion)(NSDictionary *userDict);
 
 - (void)fetchUserWithEmail:(NSString *)email
                   password:(NSString *)password
+             twoFactorCode:(NSString *)code
                 completion:(PRGGitHubUserFetchCompletion)completion;
-
 @end

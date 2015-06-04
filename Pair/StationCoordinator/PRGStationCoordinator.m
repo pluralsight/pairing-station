@@ -3,11 +3,18 @@
 #import "PRGUser.h"
 #import "PRGGitManager.h"
 #import "PRGGitHubAPI.h"
+#import "Pair-Swift.h"
 
 typedef NS_ENUM(NSInteger, PRGSeatSide) {
     PRGSeatSideLeft,
     PRGSeatSideRight
 };
+
+@interface PRGStationCoordinator()
+
+@property (nonatomic, weak) IBOutlet NSView *alertAccessoryView;
+
+@end
 
 @implementation PRGStationCoordinator
 
@@ -101,38 +108,32 @@ BOOL shouldLockOverlayOn  = NO;
     shouldLockOverlayOn = YES;
     
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:@"Enter your Github email"];
+    [alert setMessageText:@"Enter your Github credentials"];
     [alert addButtonWithTitle:@"Ok"];
     [alert addButtonWithTitle:@"Cancel"];
     
-    NSString *email;
-    NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-    [input setStringValue:@""];
+    NSNib *alertNib = [[NSNib alloc] initWithNibNamed:@"SignInAlertView" bundle:nil];
+    PRGAuthenticationAlertAccessoryView *accessoryView = nil;
+    NSArray *topLevelObjects;
+    [alertNib instantiateWithOwner:nil topLevelObjects:&topLevelObjects];
+    for (id obj in topLevelObjects) {
+        if ([obj isKindOfClass:[PRGAuthenticationAlertAccessoryView class]]) {
+            accessoryView = obj;
+            [alert setAccessoryView:accessoryView];
+            
+        }
+    }
     
-    [alert setAccessoryView:input];
     NSInteger button = [alert runModal];
+    
     if (button == NSAlertFirstButtonReturn) {
-        email = [input stringValue];
-    }
-    
-    NSAlert *passwordAlert = [NSAlert new];
-    [passwordAlert setMessageText:@"Enter your Github password"];
-    [passwordAlert addButtonWithTitle:@"Ok"];
-    [passwordAlert addButtonWithTitle:@"Cancel"];
-    
-    NSString *password;
-    NSSecureTextField *passwordInput = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-    
-    [passwordInput setStringValue:@""];
-    
-    [passwordAlert setAccessoryView:passwordInput];
-    button = [passwordAlert runModal];
-    if (button == NSAlertFirstButtonReturn) {
-        password = [passwordInput stringValue];
-    }
-    
+        NSString *email = accessoryView.emailField.stringValue;
+        NSString *password = accessoryView.passwordField.stringValue;
+        NSString *twoFactor = accessoryView.twoFactorField.stringValue;
+
     [self.gitHubAPI fetchUserWithEmail:email
                               password:password
+                         twoFactorCode:twoFactor
                             completion:^(NSDictionary *userDict) {
                                 if (!userDict || (!userDict[@"login"] && !userDict[@"name"])) {
                                     shouldLockOverlayOn = NO;
@@ -160,6 +161,7 @@ BOOL shouldLockOverlayOn  = NO;
                                 }
                                 shouldLockOverlayOn = NO;
                             }];
+            }
 }
 
 
