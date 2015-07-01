@@ -15,12 +15,6 @@ class PRGAuthenticationAlertAccessoryView: NSView {
     @IBOutlet weak var passwordField: NSTextField!
     @IBOutlet weak var twoFactorField: NSTextField!
     
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
-
-        // Drawing code here.
-    }
-    
     @IBAction func twoFactorClicked(sender: NSView) {
         sender.hidden = true
         twoFactorField.hidden = false
